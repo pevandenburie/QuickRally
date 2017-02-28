@@ -1,0 +1,17 @@
+{
+  "name": "ih-rally-bot",
+  "version": "0.0.1",
+  "description": "An Infinite-Home SparkBot for quick Rally access.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "paulvand@cisco.com",
+  "license": "MIT",
+  "dependencies": {
+    "node-flint": "~4.4.2",
+    "express": "~4.13.1",
+    "body-parser": "~1.13.2"
+  }
+
+}
