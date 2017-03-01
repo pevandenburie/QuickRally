@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 
 // flint options
 var config = {
-  webhookUrl: 'http://myserver.com/flint',
+  webhookUrl: process.env.SPARK_WEBHOOKURL, //'http://myserver.com/flint'
   token: process.env.SPARK_TOKEN,
   port: 3001
 };
