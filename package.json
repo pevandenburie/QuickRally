@@ -1,8 +1,9 @@
 {
-  "name": "ih-rally-bot",
+  "name": "QuickRally",
   "version": "0.0.1",
   "description": "An Infinite-Home SparkBot for quick Rally access.",
-  "main": "index.js",
+  "repository": "https://github.com/pevandenburie/QuickRally",
+  "main": "app.js",
   "scripts": {
     "test": "test"
   },
@@ -13,5 +14,4 @@
     "express": "~4.13.1",
     "body-parser": "~1.13.2"
   }
-
 }
