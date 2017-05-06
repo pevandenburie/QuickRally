@@ -3,6 +3,8 @@ var webhook = require('node-flint/webhook');
 var express = require('express');
 var bodyParser = require('body-parser');
 
+var trains = require('./takeatrain/models/train').trains;
+
 var app = express();
 app.use(bodyParser.json());
 

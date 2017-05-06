@@ -13,7 +13,9 @@ It is based on the ["flint-bot"](https://github.com/flint-bot/flint) framework.
 
     $ export SPARK_TOKEN="Tm90aGluZyB0b..."
     $ export SPARK_WEBHOOKURL="http://myserver.com/flint"
-    $ docker run -it -e SPARK_TOKEN -e SPARK_WEBHOOKURL -p 80:80  quickrally
+    $ export RALLY_API_KEY="_GeUV8XARSxa9zLefh..."
+    $ export MAILER_USER_PASSWORD="user:password"
+    $ docker run -it -e SPARK_TOKEN -e SPARK_WEBHOOKURL -e RALLY_API_KEY -e MAILER_USER_PASSWORD -p 80:80  quickrally
 
 ## References
 
