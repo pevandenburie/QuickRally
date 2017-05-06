@@ -4,6 +4,9 @@ var express = require('express');
 var bodyParser = require('body-parser');
 
 var trains = require('./takeatrain/models/train').trains;
+var searchUser = require('./takeatrain/models/train').searchUser;
+var searchTeam = require('./takeatrain/models/train').searchTeam;
+
 
 var app = express();
 app.use(bodyParser.json());
@@ -24,6 +27,30 @@ flint.hears('/hello', function(bot, trigger) {
   bot.say('Hello %s!', trigger.personDisplayName);
 });
 
+flint.hears('search', function(bot, trigger) {
+  var noneFound =  {
+    "name": "Not Found",
+    "href": "/"
+  };
+
+  var nameToSearch = trigger.args[1];
+  console.log("search for " + nameToSearch);
+
+  //logger.info('action="search '+userObj.name+'"');
+  var founds = searchUser(nameToSearch);
+
+  // no user found; look for a team
+  if (founds.length === 0) {
+    founds = searchTeam(nameToSearch);
+  }
+
+  if (founds.length === 0) {
+    founds.push(noneFound);
+  }
+
+  bot.say('I\'ve found:\n' + JSON.stringify(founds));
+
+});
 
 // default message for unrecognized commands
 flint.hears(/.*/, function(bot, trigger) {
