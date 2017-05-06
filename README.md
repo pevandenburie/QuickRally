@@ -12,8 +12,8 @@ It is based on the ["flint-bot"](https://github.com/flint-bot/flint) framework.
 ## Running the container
 
     $ export SPARK_TOKEN="Tm90aGluZyB0b..."
-    $ export SPARK_WEBHOOK="http://myserver.com/flint"
-    $ docker run -it -e SPARK_TOKEN -e SPARK_WEBHOOK -p 80:3001  quickrally
+    $ export SPARK_WEBHOOKURL="http://myserver.com/flint"
+    $ docker run -it -e SPARK_TOKEN -e SPARK_WEBHOOKURL -p 80:80  quickrally
 
 ## References
 

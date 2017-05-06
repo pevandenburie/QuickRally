@@ -8,9 +8,9 @@ app.use(bodyParser.json());
 
 // flint options
 var config = {
-  webhookUrl: process.env.SPARK_WEBHOOKURL, //'http://myserver.com/flint'
+  webhookUrl: process.env.SPARK_WEBHOOKURL,
   token: process.env.SPARK_TOKEN,
-  port: 3001
+  port: process.env.QUICKRALLY_PORT || 80,
 };
 
 //init flint
@@ -21,6 +21,13 @@ flint.start();
 flint.hears('/hello', function(bot, trigger) {
   bot.say('Hello %s!', trigger.personDisplayName);
 });
+
+
+// default message for unrecognized commands
+flint.hears(/.*/, function(bot, trigger) {
+  bot.say('Could you please rephrase?');
+}, 20);
+
 
 // define express path for incoming webhooks
 app.post('/flint', webhook(flint));
