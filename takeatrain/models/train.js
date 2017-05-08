@@ -18,6 +18,15 @@ var Train = Backbone.Model.extend({
 
 var Trains = Backbone.Collection.extend({
   model: Train,
+
+  start: function() {
+    restApi.get({
+      ref: '/project/29404291867/Children',  // Infinite Home Feature Teams Children
+    }).then(trainsCallback)
+    .fail(function(errors) {
+       logger.error(errors);
+    });
+  }
 });
 
 // exports.Train = Train;
@@ -221,15 +230,16 @@ function createTrainsCallback(trains) {
 
 
 var trainsCallback = createTrainsCallback(trains);
-
-restApi.get({
-  ref: '/project/29404291867/Children',  // Infinite Home Feature Teams Children
-}).then(trainsCallback)
-.fail(function(errors) {
-   logger.error(errors);
-});
+//
+// restApi.get({
+//   ref: '/project/29404291867/Children',  // Infinite Home Feature Teams Children
+// }).then(trainsCallback)
+// .fail(function(errors) {
+//    logger.error(errors);
+// });
 
 
 exports.trains = trains;
 exports.searchUser = searchUser;
 exports.searchTeam = searchTeam;
+exports.Train = Train;

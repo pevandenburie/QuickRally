@@ -22,6 +22,9 @@ var config = {
 var flint = new Flint(config);
 flint.start();
 
+// init TakeATrain
+trains.start();
+
 // say hello
 flint.hears('/hello', function(bot, trigger) {
   bot.say('Hello %s!', trigger.personDisplayName);
