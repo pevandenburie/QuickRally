@@ -41,7 +41,8 @@ var Trains = Backbone.Collection.extend({
           if (current.toLowerCase().indexOf(lookingForUser) != -1) {
             var found = {
               "name": current+ ' ('+team.get('Name')+')',
-              "href": ('/trains/'+train.get('Name')+'#'+team.get('Name'))
+              "href": ('/trains/'+train.get('Name')+'#'+team.get('Name')),
+              "user": user
             };
             founds.push(found);
           }

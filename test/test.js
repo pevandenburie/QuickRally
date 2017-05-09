@@ -35,13 +35,17 @@ describe('TakeATrain', function() {
   });
 
   describe('User', function() {
-    it('created user should be correctly filled', function() {
+    it('created User should be correctly filled', function() {
       assert.equal('John Doe', user.getDisplayName());
       assert.equal('johndoe@test.com', user.getEmailAddress());
       assert.equal('Tester', user.getRole());
       assert.equal('johndoe', user.getUsername());
     });
   });
+
+  // describe('Team', function() {
+  //   it('created Team should be correctly filled');
+  // });
 
   describe('#searchUser()', function() {
     it('should return empty array when user is unknown', function() {
@@ -52,6 +56,11 @@ describe('TakeATrain', function() {
       assert.equal(1, found.length);
       assert.equal('John Doe (The Avengers)', found[0].name);
       assert.equal('/trains/Indigo#The Avengers', found[0].href);
+
+      assert.equal('John Doe', found[0].user.getDisplayName());
+      assert.equal('johndoe@test.com', found[0].user.getEmailAddress());
+      assert.equal('Tester', found[0].user.getRole());
+      assert.equal('johndoe', found[0].user.getUsername());
     });
   });
 
