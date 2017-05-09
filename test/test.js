@@ -10,6 +10,7 @@ var User = require('../takeatrain/models/user').User;
 describe('TakeATrain', function() {
 
   var user = undefined;
+  var team = undefined;
 
   before(function() {
     // Add a train, a team, a team member
@@ -19,7 +20,7 @@ describe('TakeATrain', function() {
       Notes: 'Some notes about the Test Train'
     });
 
-    var team = new Team({Name: 'The Avengers'});
+    team = new Team({Name: 'The Avengers'});
     train.get('teams').add( team );
 
     // Append a user to the list
@@ -43,9 +44,15 @@ describe('TakeATrain', function() {
     });
   });
 
-  // describe('Team', function() {
-  //   it('created Team should be correctly filled');
-  // });
+
+  describe('Team', function() {
+    it('created Team should be correctly filled', function() {
+      assert.equal('The Avengers', team.getName());
+      //assert.equal(Array(), team.getMailers());
+      assert.equal(1, team.getUsers().length);
+    });
+  });
+
 
   describe('#searchUser()', function() {
     it('should return empty array when user is unknown', function() {

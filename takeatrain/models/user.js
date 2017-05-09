@@ -9,10 +9,6 @@ var User = Backbone.Model.extend({
   }
 });
 
-var Users = Backbone.Collection.extend({
-  model: User,
-});
-
 User.prototype.getDisplayName = function() {
   return this.get('DisplayName');
 }
@@ -28,6 +24,11 @@ User.prototype.getRole = function() {
 User.prototype.getUsername = function() {
   return this.get('username');
 }
+
+
+var Users = Backbone.Collection.extend({
+  model: User,
+});
 
 exports.User = User;
 exports.Users = Users;
