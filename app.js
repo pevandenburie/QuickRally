@@ -4,9 +4,6 @@ var express = require('express');
 var bodyParser = require('body-parser');
 
 var trains = require('./takeatrain/models/train').trains;
-var searchUser = require('./takeatrain/models/train').searchUser;
-var searchTeam = require('./takeatrain/models/train').searchTeam;
-
 
 var app = express();
 app.use(bodyParser.json());
@@ -40,11 +37,11 @@ flint.hears('search', function(bot, trigger) {
   console.log("search for " + nameToSearch);
 
   //logger.info('action="search '+userObj.name+'"');
-  var founds = searchUser(nameToSearch);
+  var founds = trains.searchUser(nameToSearch);
 
   // no user found; look for a team
   if (founds.length === 0) {
-    founds = searchTeam(nameToSearch);
+    founds = trains.searchTeam(nameToSearch);
   }
 
   if (founds.length === 0) {

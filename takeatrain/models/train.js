@@ -75,10 +75,6 @@ var Trains = Backbone.Collection.extend({
   }
 });
 
-// exports.Train = Train;
-// exports.Trains = Trains;
-
-
 
 var Team = require('../models/team').Team;
 var Teams = require('../models/team').Teams;

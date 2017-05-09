@@ -3,14 +3,13 @@ var assert = require('assert');
 
 var trains = require('../takeatrain/models/train').trains;
 var Train = require('../takeatrain/models/train').Train;
-//var Teams = require('../takeatrain/models/team').Teams;
 var Team = require('../takeatrain/models/team').Team;
 var User = require('../takeatrain/models/user').User;
-// var searchUser = require('../takeatrain/models/train').searchUser;
-// var searchTeam = require('../takeatrain/models/train').searchTeam;
 
 
 describe('TakeATrain', function() {
+
+  var user = undefined;
 
   before(function() {
     // Add a train, a team, a team member
@@ -24,7 +23,7 @@ describe('TakeATrain', function() {
     train.get('teams').add( team );
 
     // Append a user to the list
-    var user = new User({
+    user = new User({
       DisplayName: 'John Doe',
       EmailAddress: 'johndoe@test.com',
       Role: 'Tester',
@@ -35,6 +34,14 @@ describe('TakeATrain', function() {
     trains.add( train );
   });
 
+  describe('User', function() {
+    it('created user should be correctly filled', function() {
+      assert.equal('John Doe', user.getDisplayName());
+      assert.equal('johndoe@test.com', user.getEmailAddress());
+      assert.equal('Tester', user.getRole());
+      assert.equal('johndoe', user.getUsername());
+    });
+  });
 
   describe('#searchUser()', function() {
     it('should return empty array when user is unknown', function() {
