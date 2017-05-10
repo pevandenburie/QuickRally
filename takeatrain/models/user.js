@@ -6,6 +6,7 @@ var User = Backbone.Model.extend({
     username: '',
     EmailAddress: '',
     Role: '',
+    teamName: ''  //value directly on the object
   }
 });
 
@@ -23,6 +24,22 @@ User.prototype.getRole = function() {
 
 User.prototype.getUsername = function() {
   return this.get('username');
+}
+
+User.prototype.getDirectoryLink = function() {
+  return 'http://wwwin-tools.cisco.com/dir/'+this.get('username');
+}
+
+User.prototype.getPictureLink = function() {
+  return 'http://wwwin.cisco.com/dir/photo/std/'+this.get('username')+'.jpg'
+}
+
+User.prototype.setTeamName = function(teamName) {
+  this.teamName = teamName;
+}
+
+User.prototype.getTeamName = function() {
+  return this.teamName;
 }
 
 

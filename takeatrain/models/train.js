@@ -16,6 +16,31 @@ var Train = Backbone.Model.extend({
   },
 });
 
+Train.prototype.getName = function() {
+  return this.get('Name');
+}
+
+Train.prototype.getDescription = function() {
+  return this.get('Description');
+}
+
+Train.prototype.getNotes = function() {
+  return this.get('Notes');
+}
+
+Train.prototype.getMailers = function() {
+  return this.get('mailers');
+}
+
+Train.prototype.getTeams = function() {
+  var teams = [];
+  this.get('teams').forEach( function(team) {
+    teams.push(team);
+  });
+  return teams;
+}
+
+
 var Trains = Backbone.Collection.extend({
   model: Train,
 

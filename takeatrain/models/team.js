@@ -29,6 +29,14 @@ Team.prototype.getUsers = function() {
   return users;
 }
 
+Team.prototype.addUser = function(user) {
+  this.get('users').add( user );
+  user.setTeamName(this.getName());
+}
+
+Team.prototype.fetchMailers = undefined;
+
+
 var Teams = Backbone.Collection.extend({
   model: Team,
 });

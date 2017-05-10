@@ -7,6 +7,12 @@ var Team = require('../takeatrain/models/team').Team;
 var User = require('../takeatrain/models/user').User;
 
 
+function renderUser(user) {
+  return '[**'+user.getDisplayName()+'**]('+user.getDirectoryLink()+') ('+user.getTeamName()+')\n'+
+          '!['+user.getUsername()+']('+user.getPictureLink()+')';
+}
+
+
 describe('TakeATrain', function() {
 
   var user = undefined;
@@ -33,7 +39,7 @@ describe('TakeATrain', function() {
       Role: 'Tester',
       username: 'johndoe',
     });
-    team.get('users').add( user );
+    team.addUser(user);
 
     trains.add( train );
   });
@@ -44,6 +50,9 @@ describe('TakeATrain', function() {
       assert.equal('johndoe@test.com', user.getEmailAddress());
       assert.equal('Tester', user.getRole());
       assert.equal('johndoe', user.getUsername());
+      assert.equal('http://wwwin-tools.cisco.com/dir/johndoe', user.getDirectoryLink());
+      assert.equal('http://wwwin.cisco.com/dir/photo/std/johndoe.jpg', user.getPictureLink());
+      assert.equal('The Avengers', user.getTeamName());
     });
   });
 
@@ -65,6 +74,7 @@ describe('TakeATrain', function() {
       assert.equal('Some notes about the Test Train', train.getNotes());
       assert.equal(0, train.getMailers().length);
       assert.equal(1, train.getTeams().length);
+      assert.equal('The Avengers', train.getTeams()[0].getName());
     });
   });
 
@@ -86,7 +96,7 @@ describe('TakeATrain', function() {
     });
   });
 
-  describe('#searchTeam()', function(){
+  describe('#searchTeam()', function() {
     it('should return empty array when team is unknown', function() {
       assert.equal(0, trains.searchTeam('Unkown'));
     });
@@ -97,4 +107,24 @@ describe('TakeATrain', function() {
       assert.equal('/trains/Indigo#The Avengers', found[0].href);
     });
   });
+
+
+  describe('Markdown Rendering', function() {
+    it('User rendering should provide a correct Markdown', function() {
+      var rendering = '[**John Doe**](http://wwwin-tools.cisco.com/dir/johndoe) (The Avengers)\n'+
+                      '![johndoe](http://wwwin.cisco.com/dir/photo/std/johndoe.jpg)';
+      assert.equal(rendering, renderUser(user));
+    });
+  });
+
+  // describe('Mailer', function() {
+  //   it('created Team should call the provided fetchMailers() function', function() {
+  //     Team.prototype.fetchMailers = function() {
+  //       this.mailers.push("")
+  //     }
+  //
+  //     var team = new Team({ Name: "x-mens" });
+  //     assert.equal(2, team.getMailers().length);
+  //   });
+  // });
 });
