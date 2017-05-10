@@ -11,10 +11,11 @@ describe('TakeATrain', function() {
 
   var user = undefined;
   var team = undefined;
+  var train = undefined;
 
   before(function() {
     // Add a train, a team, a team member
-    var train = new Train({
+    train = new Train({
       Name: 'Indigo',
       Description: 'Test Train',
       Notes: 'Some notes about the Test Train'
@@ -54,6 +55,16 @@ describe('TakeATrain', function() {
       assert.equal(0, team.getMailers().length);
       assert.equal(1, team.getUsers().length);
       assert.equal('johndoe', team.getUsers()[0].getUsername());
+    });
+  });
+
+  describe('Train', function() {
+    it('created Train should be correctly filled', function() {
+      assert.equal('Indigo', train.getName());
+      assert.equal('Test Train', train.getDescription());
+      assert.equal('Some notes about the Test Train', train.getNotes());
+      assert.equal(0, train.getMailers().length);
+      assert.equal(1, train.getTeams().length);
     });
   });
 
