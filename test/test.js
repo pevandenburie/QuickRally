@@ -6,11 +6,7 @@ var Train = require('../takeatrain/models/train').Train;
 var Team = require('../takeatrain/models/team').Team;
 var User = require('../takeatrain/models/user').User;
 
-
-function renderUser(user) {
-  return '[**'+user.getDisplayName()+'**]('+user.getDirectoryLink()+') ('+user.getTeamName()+')\n'+
-          '!['+user.getUsername()+']('+user.getPictureLink()+')';
-}
+var renderUser = require('../app.js').renderUser;
 
 
 describe('TakeATrain', function() {
@@ -111,7 +107,7 @@ describe('TakeATrain', function() {
 
   describe('Markdown Rendering', function() {
     it('User rendering should provide a correct Markdown', function() {
-      var rendering = '[**John Doe**](http://wwwin-tools.cisco.com/dir/johndoe) (The Avengers)\n'+
+      var rendering = '[**John Doe**](http://wwwin-tools.cisco.com/dir/johndoe) (The Avengers) '+
                       '![johndoe](http://wwwin.cisco.com/dir/photo/std/johndoe.jpg)';
       assert.equal(rendering, renderUser(user));
     });

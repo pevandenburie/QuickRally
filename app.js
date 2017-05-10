@@ -24,32 +24,45 @@ trains.start();
 
 // say hello
 flint.hears('/hello', function(bot, trigger) {
-  bot.say('Hello %s!', trigger.personDisplayName);
+  bot.say('Hello **%s**!', trigger.personDisplayName);
 });
 
+
+var renderUser = function(user) {
+  return '[**'+user.getDisplayName()+'**]('+user.getDirectoryLink()+') ('+user.getTeamName()+') '+
+          '!['+user.getUsername()+']('+user.getPictureLink()+')';
+}
+exports.renderUser = renderUser;
+
 flint.hears('search', function(bot, trigger) {
-  var noneFound =  {
-    "name": "Not Found",
-    "href": "/"
-  };
 
   var nameToSearch = trigger.args[1];
+  var response = '';
+
   console.log("search for " + nameToSearch);
 
   //logger.info('action="search '+userObj.name+'"');
-  var founds = trains.searchUser(nameToSearch);
+  var usersFound = trains.searchUser(nameToSearch);
 
-  // no user found; look for a team
-  if (founds.length === 0) {
-    founds = trains.searchTeam(nameToSearch);
+  for (var i=0; i<usersFound.length; i++) {
+    console.log('found '+usersFound[i].user.getUsername());
+    response += renderUser(usersFound[i].user) + '\n';
   }
 
-  if (founds.length === 0) {
-    founds.push(noneFound);
+/*
+  var teamsFound = trains.searchTeam(nameToSearch);
+  if (teamsFound.length !== 0) {
+    for (var i=0; i<teamsFound.length; i++) {
+      console.log('found '+teamsFound[i].getName());
+      //response += renderTeam(teamsFound[i]) + '\n';
+    }
   }
-
-  bot.say('I\'ve found:\n' + JSON.stringify(founds));
-
+*/
+  if (response === '') {
+    response = 'Nothing found for: **'+nameToSearch+'** !';
+  }
+  console.log('response: '+response);
+  bot.say(response);
 });
 
 // default message for unrecognized commands
