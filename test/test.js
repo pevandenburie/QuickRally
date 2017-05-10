@@ -20,7 +20,9 @@ describe('TakeATrain', function() {
       Notes: 'Some notes about the Test Train'
     });
 
-    team = new Team({Name: 'The Avengers'});
+    team = new Team({
+      Name: 'The Avengers'
+    });
     train.get('teams').add( team );
 
     // Append a user to the list
@@ -48,8 +50,10 @@ describe('TakeATrain', function() {
   describe('Team', function() {
     it('created Team should be correctly filled', function() {
       assert.equal('The Avengers', team.getName());
-      //assert.equal(Array(), team.getMailers());
+      assert.ok(Array.isArray(team.getMailers()));
+      assert.equal(0, team.getMailers().length);
       assert.equal(1, team.getUsers().length);
+      assert.equal('johndoe', team.getUsers()[0].getUsername());
     });
   });
 
