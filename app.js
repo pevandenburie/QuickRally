@@ -31,7 +31,7 @@ flint.hears('/hello', function(bot, trigger) {
 
 
 var renderUser = function(user) {
-  return '[**'+user.getDisplayName()+'**]('+user.getDirectoryLink()+') ('+user.getTeamName()+')';
+  return '[**'+user.getDisplayName()+'**]('+user.getDirectoryLink()+') ('+user.getTeamName()+') : '+user.getRole();
 }
 exports.renderUser = renderUser;
 

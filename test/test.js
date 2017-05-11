@@ -32,7 +32,7 @@ describe('TakeATrain', function() {
     user = new User({
       DisplayName: 'John Doe',
       EmailAddress: 'johndoe@test.com',
-      Role: 'Tester',
+      Role: 'Super Hero',
       username: 'johndoe',
     });
     team.addUser(user);
@@ -44,7 +44,7 @@ describe('TakeATrain', function() {
     it('created User should be correctly filled', function() {
       assert.equal('John Doe', user.getDisplayName());
       assert.equal('johndoe@test.com', user.getEmailAddress());
-      assert.equal('Tester', user.getRole());
+      assert.equal('Super Hero', user.getRole());
       assert.equal('johndoe', user.getUsername());
       assert.equal('http://wwwin-tools.cisco.com/dir/johndoe', user.getDirectoryLink());
       assert.equal('http://wwwin.cisco.com/dir/photo/std/johndoe.jpg', user.getPictureLink());
@@ -87,14 +87,14 @@ describe('TakeATrain', function() {
 
       assert.equal('John Doe', found[0].user.getDisplayName());
       assert.equal('johndoe@test.com', found[0].user.getEmailAddress());
-      assert.equal('Tester', found[0].user.getRole());
+      assert.equal('Super Hero', found[0].user.getRole());
       assert.equal('johndoe', found[0].user.getUsername());
     });
   });
 
   describe('#searchTeam()', function() {
     it('should return empty array when team is unknown', function() {
-      assert.equal(0, trains.searchTeam('Unkown'));
+      assert.equal(0, trains.searchTeam('Unknown'));
     });
     it('should return one-element array when team is known', function() {
       var found = trains.searchTeam('avenger');
@@ -109,7 +109,7 @@ describe('TakeATrain', function() {
     it('User rendering should provide a correct Markdown', function() {
       /*var rendering = '[**John Doe**](http://wwwin-tools.cisco.com/dir/johndoe) (The Avengers) '+
                       '![johndoe](http://wwwin.cisco.com/dir/photo/std/johndoe.jpg)';*/
-      var rendering = '[**John Doe**](http://wwwin-tools.cisco.com/dir/johndoe) (The Avengers)';
+      var rendering = '[**John Doe**](http://wwwin-tools.cisco.com/dir/johndoe) (The Avengers) : Super Hero';
       assert.equal(rendering, renderUser(user));
     });
   });
