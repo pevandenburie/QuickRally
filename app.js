@@ -17,6 +17,8 @@ var config = {
 
 //init flint
 var flint = new Flint(config);
+// Define markdown as default
+flint.messageFormat = 'markdown';
 flint.start();
 
 // init TakeATrain
@@ -29,8 +31,7 @@ flint.hears('/hello', function(bot, trigger) {
 
 
 var renderUser = function(user) {
-  return '[**'+user.getDisplayName()+'**]('+user.getDirectoryLink()+') ('+user.getTeamName()+') '+
-          '!['+user.getUsername()+']('+user.getPictureLink()+')';
+  return '[**'+user.getDisplayName()+'**]('+user.getDirectoryLink()+') ('+user.getTeamName()+')';
 }
 exports.renderUser = renderUser;
 
@@ -46,8 +47,9 @@ flint.hears('search', function(bot, trigger) {
 
   for (var i=0; i<usersFound.length; i++) {
     console.log('found '+usersFound[i].user.getUsername());
-    response += renderUser(usersFound[i].user) + '\n';
+    response += '- '+renderUser(usersFound[i].user) + '\n';
   }
+
 
 /*
   var teamsFound = trains.searchTeam(nameToSearch);
@@ -63,6 +65,7 @@ flint.hears('search', function(bot, trigger) {
   }
   console.log('response: '+response);
   bot.say(response);
+
 });
 
 // default message for unrecognized commands

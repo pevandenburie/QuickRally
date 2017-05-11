@@ -107,8 +107,9 @@ describe('TakeATrain', function() {
 
   describe('Markdown Rendering', function() {
     it('User rendering should provide a correct Markdown', function() {
-      var rendering = '[**John Doe**](http://wwwin-tools.cisco.com/dir/johndoe) (The Avengers) '+
-                      '![johndoe](http://wwwin.cisco.com/dir/photo/std/johndoe.jpg)';
+      /*var rendering = '[**John Doe**](http://wwwin-tools.cisco.com/dir/johndoe) (The Avengers) '+
+                      '![johndoe](http://wwwin.cisco.com/dir/photo/std/johndoe.jpg)';*/
+      var rendering = '[**John Doe**](http://wwwin-tools.cisco.com/dir/johndoe) (The Avengers)';
       assert.equal(rendering, renderUser(user));
     });
   });

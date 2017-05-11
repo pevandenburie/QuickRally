@@ -150,7 +150,7 @@ function createTeamMembersCallback(team) {
           Role: item.Role,
           username: getUsernameFromEmail(item.EmailAddress),
         });
-        team.get('users').add( user );
+        team.addUser(user);
       }
     });
   };
