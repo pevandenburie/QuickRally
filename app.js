@@ -25,10 +25,16 @@ flint.start();
 trains.start();
 
 // say hello
-flint.hears('/hello', function(bot, trigger) {
-  bot.say('Hello **%s**!', trigger.personDisplayName);
+flint.hears('hello', function(bot, trigger) {
+  bot.say('Hello **'+trigger.personDisplayName+'**! Print **help** if you need some.');
 });
 
+flint.hears('help', function(bot, trigger) {
+  bot.say('##I\'m QuickRally, the Infinite Home bot to help you interact with Rally!\n'+
+          'You can ask me the following commands:\n'+
+          '- **search <name>** will return the list of people matching \'name\'\n'+
+          '- **help** will print this help');
+});
 
 var renderUser = function(user) {
   return '[**'+user.getDisplayName()+'**]('+user.getDirectoryLink()+') ('+user.getTeamName()+') : '+user.getRole();
