@@ -7,6 +7,7 @@ var Team = require('../takeatrain/models/team').Team;
 var User = require('../takeatrain/models/user').User;
 
 var renderUser = require('../app.js').renderUser;
+var renderTeam = require('../app.js').renderTeam;
 
 
 describe('TakeATrain', function() {
@@ -37,6 +38,13 @@ describe('TakeATrain', function() {
     });
     team.addUser(user);
 
+    team.addUser(new User({
+        DisplayName: 'Iron Man',
+        EmailAddress: 'ironman@test.com',
+        Role: 'Super Hero',
+        username: 'ironman',
+    }));
+
     trains.add( train );
   });
 
@@ -58,8 +66,9 @@ describe('TakeATrain', function() {
       assert.equal('The Avengers', team.getName());
       assert.ok(Array.isArray(team.getMailers()));
       assert.equal(0, team.getMailers().length);
-      assert.equal(1, team.getUsers().length);
+      assert.equal(2, team.getUsers().length);
       assert.equal('johndoe', team.getUsers()[0].getUsername());
+      assert.equal('ironman', team.getUsers()[1].getUsername());
     });
   });
 
@@ -111,6 +120,12 @@ describe('TakeATrain', function() {
                       '![johndoe](http://wwwin.cisco.com/dir/photo/std/johndoe.jpg)';*/
       var rendering = '[**John Doe**](http://wwwin-tools.cisco.com/dir/johndoe) (The Avengers) : Super Hero';
       assert.equal(rendering, renderUser(user));
+    });
+    it('Team rendering should provide a correct Markdown', function() {
+      var rendering = 'Team **"The Avengers"** :\n'+
+                      '- [**John Doe**](http://wwwin-tools.cisco.com/dir/johndoe) : Super Hero\n'+
+                      '- [**Iron Man**](http://wwwin-tools.cisco.com/dir/ironman) : Super Hero\n';
+      assert.equal(renderTeam(team), rendering);
     });
   });
 

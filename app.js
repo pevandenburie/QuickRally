@@ -41,6 +41,19 @@ var renderUser = function(user) {
 }
 exports.renderUser = renderUser;
 
+var renderTeam = function(team) {
+  var md = 'Team **"'+team.getName()+'"** :\n';
+  var l = team.getUsers().length;
+  for (var i=0; i<l; i++) {
+    var user = team.getUsers()[i];
+    md += '- [**'+user.getDisplayName()+'**]('+user.getDirectoryLink()+') : '+user.getRole()+'\n';
+  }
+
+  return md;
+}
+exports.renderTeam = renderTeam;
+
+
 flint.hears('search', function(bot, trigger) {
 
   var nameToSearch = trigger.args[1];
