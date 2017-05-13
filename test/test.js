@@ -50,66 +50,66 @@ describe('TakeATrain', function() {
 
   describe('User', function() {
     it('created User should be correctly filled', function() {
-      assert.equal('John Doe', user.getDisplayName());
-      assert.equal('johndoe@test.com', user.getEmailAddress());
-      assert.equal('Super Hero', user.getRole());
-      assert.equal('johndoe', user.getUsername());
-      assert.equal('http://wwwin-tools.cisco.com/dir/johndoe', user.getDirectoryLink());
-      assert.equal('http://wwwin.cisco.com/dir/photo/std/johndoe.jpg', user.getPictureLink());
-      assert.equal('The Avengers', user.getTeamName());
+      assert.equal(user.getDisplayName(), 'John Doe');
+      assert.equal(user.getEmailAddress(), 'johndoe@test.com');
+      assert.equal(user.getRole(), 'Super Hero');
+      assert.equal(user.getUsername(), 'johndoe');
+      assert.equal(user.getDirectoryLink(), 'http://wwwin-tools.cisco.com/dir/johndoe');
+      assert.equal(user.getPictureLink(), 'http://wwwin.cisco.com/dir/photo/std/johndoe.jpg');
+      assert.equal(user.getTeamName(), 'The Avengers');
     });
   });
 
 
   describe('Team', function() {
     it('created Team should be correctly filled', function() {
-      assert.equal('The Avengers', team.getName());
+      assert.equal(team.getName(), 'The Avengers');
       assert.ok(Array.isArray(team.getMailers()));
-      assert.equal(0, team.getMailers().length);
-      assert.equal(2, team.getUsers().length);
-      assert.equal('johndoe', team.getUsers()[0].getUsername());
-      assert.equal('ironman', team.getUsers()[1].getUsername());
+      assert.equal(team.getMailers().length, 0);
+      assert.equal(team.getUsers().length, 2);
+      assert.equal(team.getUsers()[0].getUsername(), 'johndoe');
+      assert.equal(team.getUsers()[1].getUsername(), 'ironman');
     });
   });
 
   describe('Train', function() {
     it('created Train should be correctly filled', function() {
-      assert.equal('Indigo', train.getName());
-      assert.equal('Test Train', train.getDescription());
-      assert.equal('Some notes about the Test Train', train.getNotes());
-      assert.equal(0, train.getMailers().length);
-      assert.equal(1, train.getTeams().length);
-      assert.equal('The Avengers', train.getTeams()[0].getName());
+      assert.equal(train.getName(), 'Indigo');
+      assert.equal(train.getDescription(), 'Test Train');
+      assert.equal(train.getNotes(), 'Some notes about the Test Train');
+      assert.equal(train.getMailers().length, 0);
+      assert.equal(train.getTeams().length, 1);
+      assert.equal(train.getTeams()[0].getName(), 'The Avengers');
     });
   });
 
 
   describe('#searchUser()', function() {
     it('should return empty array when user is unknown', function() {
-      assert.equal(0, trains.searchUser('Unkown'));
+      assert.equal(trains.searchUser('Unkown'), 0);
     });
     it('should return one-element array when user is known', function() {
       var found = trains.searchUser('doe');
-      assert.equal(1, found.length);
-      assert.equal('John Doe (The Avengers)', found[0].name);
-      assert.equal('/trains/Indigo#The Avengers', found[0].href);
+      assert.equal(found.length, 1);
+      assert.equal(found[0].name, 'John Doe (The Avengers)');
+      assert.equal(found[0].href, '/trains/Indigo#The Avengers');
 
-      assert.equal('John Doe', found[0].user.getDisplayName());
-      assert.equal('johndoe@test.com', found[0].user.getEmailAddress());
-      assert.equal('Super Hero', found[0].user.getRole());
-      assert.equal('johndoe', found[0].user.getUsername());
+      assert.equal(found[0].user.getDisplayName(), 'John Doe');
+      assert.equal(found[0].user.getEmailAddress(), 'johndoe@test.com');
+      assert.equal(found[0].user.getRole(), 'Super Hero');
+      assert.equal(found[0].user.getUsername(), 'johndoe');
     });
   });
 
   describe('#searchTeam()', function() {
     it('should return empty array when team is unknown', function() {
-      assert.equal(0, trains.searchTeam('Unknown'));
+      assert.equal(trains.searchTeam('Unknown'), 0);
     });
     it('should return one-element array when team is known', function() {
       var found = trains.searchTeam('avenger');
-      assert.equal(1, found.length);
-      assert.equal('The Avengers (Indigo)', found[0].name);
-      assert.equal('/trains/Indigo#The Avengers', found[0].href);
+      assert.equal(found.length, 1);
+      assert.equal(found[0].name, 'The Avengers (Indigo)');
+      assert.equal(found[0].href, '/trains/Indigo#The Avengers');
     });
   });
 
@@ -119,7 +119,7 @@ describe('TakeATrain', function() {
       /*var rendering = '[**John Doe**](http://wwwin-tools.cisco.com/dir/johndoe) (The Avengers) '+
                       '![johndoe](http://wwwin.cisco.com/dir/photo/std/johndoe.jpg)';*/
       var rendering = '[**John Doe**](http://wwwin-tools.cisco.com/dir/johndoe) (The Avengers) : Super Hero';
-      assert.equal(rendering, renderUser(user));
+      assert.equal(renderUser(user), rendering);
     });
     it('Team rendering should provide a correct Markdown', function() {
       var rendering = 'Team **"The Avengers"** :\n'+
