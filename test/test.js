@@ -7,6 +7,7 @@ var Team = require('../takeatrain/models/team').Team;
 var User = require('../takeatrain/models/user').User;
 
 var renderUser = require('../app.js').renderUser;
+var renderUserList = require('../app.js').renderUserList;
 var renderTeam = require('../app.js').renderTeam;
 
 
@@ -120,6 +121,11 @@ describe('TakeATrain', function() {
                       '![johndoe](http://wwwin.cisco.com/dir/photo/std/johndoe.jpg)';*/
       var rendering = '[**John Doe**](http://wwwin-tools.cisco.com/dir/johndoe) (The Avengers) : Super Hero';
       assert.equal(renderUser(user), rendering);
+    });
+    it('User List rendering should provide a correct Markdown', function() {
+      var rendering = '- [**John Doe**](http://wwwin-tools.cisco.com/dir/johndoe) (The Avengers) : Super Hero\n'+
+                      '- [**Iron Man**](http://wwwin-tools.cisco.com/dir/ironman) (The Avengers) : Super Hero\n';
+      assert.equal(renderUserList([{user:team.getUsers()[0]}, {user:team.getUsers()[1]}]), rendering);
     });
     it('Team rendering should provide a correct Markdown', function() {
       var rendering = 'Team **"The Avengers"** :\n'+

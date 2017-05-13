@@ -39,7 +39,14 @@ flint.hears('help', function(bot, trigger) {
 var renderUser = function(user) {
   return '[**'+user.getDisplayName()+'**]('+user.getDirectoryLink()+') ('+user.getTeamName()+') : '+user.getRole();
 }
-exports.renderUser = renderUser;
+
+var renderUserList = function(userList) {
+  var md = '';
+  for (var i=0; i<userList.length; i++) {
+    md += '- '+renderUser(userList[i].user) + '\n';
+  }
+  return md;
+}
 
 var renderTeam = function(team) {
   var md = 'Team **"'+team.getName()+'"** :\n';
@@ -51,6 +58,9 @@ var renderTeam = function(team) {
 
   return md;
 }
+
+exports.renderUser = renderUser;
+exports.renderUserList = renderUserList;
 exports.renderTeam = renderTeam;
 
 
@@ -64,10 +74,7 @@ flint.hears('search', function(bot, trigger) {
   //logger.info('action="search '+userObj.name+'"');
   var usersFound = trains.searchUser(nameToSearch);
 
-  for (var i=0; i<usersFound.length; i++) {
-    console.log('found '+usersFound[i].user.getUsername());
-    response += '- '+renderUser(usersFound[i].user) + '\n';
-  }
+  response += renderUserList(usersFound);
 
 
 /*
