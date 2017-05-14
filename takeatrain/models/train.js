@@ -32,6 +32,11 @@ Train.prototype.getMailers = function() {
   return this.get('mailers');
 }
 
+Train.prototype.addTeam = function(team) {
+  this.get('teams').add( team );
+  team.setTrainName(this.get('Name'));
+}
+
 Train.prototype.getTeams = function() {
   var teams = [];
   this.get('teams').forEach( function(team) {
@@ -90,7 +95,8 @@ var Trains = Backbone.Collection.extend({
         if (current.toLowerCase().indexOf(lookingForTeam) != -1) {
           var found = {
             "name": current + ' ('+train.get('Name')+')',
-            "href": ('/trains/'+train.get('Name')+'#'+team.get('Name'))
+            "href": ('/trains/'+train.get('Name')+'#'+team.get('Name')),
+            "team": team
           };
           founds.push(found);
         }
@@ -173,7 +179,7 @@ function createTeamsCallback(train) {
 
       // Append the team to the list
       var team = new Team({ Name: item.Name });
-      train.get('teams').add( team );
+      train.addTeam(team);
 
 
       // Get mailer addresses for the team

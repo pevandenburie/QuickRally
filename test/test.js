@@ -9,6 +9,7 @@ var User = require('../takeatrain/models/user').User;
 var renderUser = require('../app.js').renderUser;
 var renderUserList = require('../app.js').renderUserList;
 var renderTeam = require('../app.js').renderTeam;
+var renderTeamList = require('../app.js').renderTeamList;
 
 
 describe('TakeATrain', function() {
@@ -16,6 +17,7 @@ describe('TakeATrain', function() {
   var user = undefined;
   var team = undefined;
   var train = undefined;
+  var train2 = undefined;
 
   before(function() {
     // Add a train, a team, a team member
@@ -28,7 +30,7 @@ describe('TakeATrain', function() {
     team = new Team({
       Name: 'The Avengers'
     });
-    train.get('teams').add( team );
+    train.addTeam( team );
 
     // Append a user to the list
     user = new User({
@@ -47,6 +49,18 @@ describe('TakeATrain', function() {
     }));
 
     trains.add( train );
+
+    train2 = new Train({
+      Name: 'Fushia',
+      Description: 'Test Train 2',
+      Notes: 'Some notes about the Test Train 2'
+    });
+    trains.add(train2);
+    train2.addTeam( new Team({
+        Name: 'Justice League'
+      })
+    );
+
   });
 
   describe('User', function() {
@@ -133,6 +147,12 @@ describe('TakeATrain', function() {
                       '- [**Iron Man**](http://wwwin-tools.cisco.com/dir/ironman) : Super Hero\n';
       assert.equal(renderTeam(team), rendering);
     });
+    it('Team List rendering should provide a correct Markdown', function() {
+      var rendering = '- **The Avengers** (Indigo)\n'+
+                      '- **Justice League** (Fushia)\n';
+      assert.equal(renderTeamList([{team: train.getTeams()[0]}, {team: train2.getTeams()[0]}]), rendering);
+    });
+
   });
 
   // describe('Mailer', function() {

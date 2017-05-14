@@ -59,9 +59,18 @@ var renderTeam = function(team) {
   return md;
 }
 
+var renderTeamList = function(teamList) {
+  var md = '';
+  for (var i=0; i<teamList.length; i++) {
+    md += '- **'+teamList[i].team.getName() + '** ('+teamList[i].team.getTrainName()+')\n';
+  }
+  return md;
+}
+
 exports.renderUser = renderUser;
 exports.renderUserList = renderUserList;
 exports.renderTeam = renderTeam;
+exports.renderTeamList = renderTeamList;
 
 
 flint.hears('search', function(bot, trigger) {
@@ -73,19 +82,18 @@ flint.hears('search', function(bot, trigger) {
 
   //logger.info('action="search '+userObj.name+'"');
   var usersFound = trains.searchUser(nameToSearch);
-
-  response += renderUserList(usersFound);
-
-
-/*
-  var teamsFound = trains.searchTeam(nameToSearch);
-  if (teamsFound.length !== 0) {
-    for (var i=0; i<teamsFound.length; i++) {
-      console.log('found '+teamsFound[i].getName());
-      //response += renderTeam(teamsFound[i]) + '\n';
-    }
+  if (usersFound.length) {
+    response += '**Users found :**\n'
+    response += renderUserList(usersFound);
+      response += '\n\n'
   }
-*/
+
+  var teamsFound = trains.searchTeam(nameToSearch);
+  if (teamsFound.length) {
+    response += '**Teams found :**\n'
+    response += renderTeamList(teamsFound);
+  }
+
   if (response === '') {
     response = 'Nothing found for: **'+nameToSearch+'** !';
   }

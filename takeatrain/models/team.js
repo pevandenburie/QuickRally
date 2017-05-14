@@ -34,6 +34,14 @@ Team.prototype.addUser = function(user) {
   user.setTeamName(this.getName());
 }
 
+Team.prototype.setTrainName = function(trainName) {
+  this.trainName = trainName;
+}
+
+Team.prototype.getTrainName = function() {
+  return this.trainName;
+}
+
 Team.prototype.fetchMailers = undefined;
 
 
