@@ -3,7 +3,7 @@ var webhook = require('node-flint/webhook');
 var express = require('express');
 var bodyParser = require('body-parser');
 
-var trains = require('./takeatrain/models/train').trains;
+var TakeATrain = require('./lib/takeatrain');
 
 var app = express();
 app.use(bodyParser.json());
@@ -22,7 +22,8 @@ flint.messageFormat = 'markdown';
 flint.start();
 
 // init TakeATrain
-trains.start();
+var takeatrain = new TakeATrain()
+takeatrain.start();
 
 // say hello
 flint.hears('hello', function(bot, trigger) {
@@ -55,7 +56,6 @@ var renderTeam = function(team) {
     var user = team.getUsers()[i];
     md += '- [**'+user.getDisplayName()+'**]('+user.getDirectoryLink()+') : '+user.getRole()+'\n';
   }
-
   return md;
 }
 
@@ -81,14 +81,14 @@ flint.hears('search', function(bot, trigger) {
   console.log("search for " + nameToSearch);
 
   //logger.info('action="search '+userObj.name+'"');
-  var usersFound = trains.searchUser(nameToSearch);
+  var usersFound = takeatrain.trains.searchUser(nameToSearch);
   if (usersFound.length) {
     response += '**Users found :**\n'
     response += renderUserList(usersFound);
       response += '\n\n'
   }
 
-  var teamsFound = trains.searchTeam(nameToSearch);
+  var teamsFound = takeatrain.trains.searchTeam(nameToSearch);
   if (teamsFound.length) {
     response += '**Teams found :**\n'
     response += renderTeamList(teamsFound);

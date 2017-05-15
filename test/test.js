@@ -1,10 +1,11 @@
 
 var assert = require('assert');
 
-var trains = require('../takeatrain/models/train').trains;
-var Train = require('../takeatrain/models/train').Train;
-var Team = require('../takeatrain/models/team').Team;
-var User = require('../takeatrain/models/user').User;
+var TakeATrain = require('../lib/takeatrain');
+var Trains = TakeATrain.Trains;
+var Train = TakeATrain.Train;
+var Team = TakeATrain.Team;
+var User = TakeATrain.User;
 
 var renderUser = require('../app.js').renderUser;
 var renderUserList = require('../app.js').renderUserList;
@@ -18,8 +19,11 @@ describe('TakeATrain', function() {
   var team = undefined;
   var train = undefined;
   var train2 = undefined;
+  var trains = undefined;
 
   before(function() {
+    trains = new Trains();
+
     // Add a train, a team, a team member
     train = new Train({
       Name: 'Indigo',
@@ -58,8 +62,7 @@ describe('TakeATrain', function() {
     trains.add(train2);
     train2.addTeam( new Team({
         Name: 'Justice League'
-      })
-    );
+    }));
 
   });
 
