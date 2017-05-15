@@ -40,7 +40,7 @@ flint.hears('help', function(bot, trigger) {
 var renderUser = function(user, bot) {
   //send the picture : find a way to provice a private picture
   // if (bot) {
-  //   bot.say({text: user.getUsername(), file: user.getPictureLink()});
+  //   bot.say({text: user.getUsername(), file: user.getDirectoryPictureLink()});
   // }
   return '[**'+user.getDisplayName()+'**]('+user.getDirectoryLink()+') ('+user.getUsername()+') ('+user.getTeamName()+') : '+user.getRole();
 }
