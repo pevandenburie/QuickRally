@@ -73,7 +73,7 @@ describe('TakeATrain', function() {
       assert.equal(user.getRole(), 'Super Hero');
       assert.equal(user.getUsername(), 'johndoe');
       assert.equal(user.getDirectoryLink(), 'http://wwwin-tools.cisco.com/dir/johndoe');
-      assert.equal(user.getPictureLink(), 'http://wwwin.cisco.com/dir/photo/std/johndoe.jpg');
+      assert.equal(user.getDirectoryPictureLink(), 'http://wwwin.cisco.com/dir/photo/std/johndoe.jpg');
       assert.equal(user.getTeamName(), 'The Avengers');
     });
   });
