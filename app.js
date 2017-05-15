@@ -37,13 +37,19 @@ flint.hears('help', function(bot, trigger) {
           '- **help** will print this help');
 });
 
-var renderUser = function(user) {
-  return '[**'+user.getDisplayName()+'**]('+user.getDirectoryLink()+') ('+user.getTeamName()+') : '+user.getRole();
+var renderUser = function(user, bot) {
+  //send the picture : find a way to provice a private picture
+  // if (bot) {
+  //   bot.say({text: user.getUsername(), file: user.getPictureLink()});
+  // }
+  return '[**'+user.getDisplayName()+'**]('+user.getDirectoryLink()+') ('+user.getUsername()+') ('+user.getTeamName()+') : '+user.getRole();
 }
 
 var renderUserList = function(userList) {
   var md = '';
   for (var i=0; i<userList.length; i++) {
+    //var user = userList[i].user;
+    //md += '- [**'+user.getDisplayName()+'**]('+user.getDirectoryLink()+') ('+user.getTeamName()+') : '+user.getRole() + '\n';
     md += '- '+renderUser(userList[i].user) + '\n';
   }
   return md;
@@ -54,7 +60,7 @@ var renderTeam = function(team) {
   var l = team.getUsers().length;
   for (var i=0; i<l; i++) {
     var user = team.getUsers()[i];
-    md += '- [**'+user.getDisplayName()+'**]('+user.getDirectoryLink()+') : '+user.getRole()+'\n';
+    md += '- [**'+user.getDisplayName()+'**]('+user.getDirectoryLink()+') ('+user.getUsername()+') : '+user.getRole()+'\n';
   }
   return md;
 }
@@ -82,24 +88,36 @@ flint.hears('search', function(bot, trigger) {
 
   //logger.info('action="search '+userObj.name+'"');
   var usersFound = takeatrain.searchUser(nameToSearch);
-  if (usersFound.length) {
-    response += '**Users found :**\n'
-    response += renderUserList(usersFound);
-      response += '\n\n'
-  }
-
   var teamsFound = takeatrain.searchTeam(nameToSearch);
-  if (teamsFound.length) {
-    response += '**Teams found :**\n'
-    response += renderTeamList(teamsFound);
+
+  // if only one result, show the full rendering
+  if ((usersFound.length === 1) && (teamsFound.length === 0)) {
+    response += renderUser(usersFound[0].user, bot);
+  }
+  else if ((usersFound.length === 0) && (teamsFound.length === 1)) {
+    response += renderTeam(teamsFound[0].team);
+  }
+  // render what we found as lists
+  else {
+    if (usersFound.length) {
+      response += '**Users found :**\n';
+      response += renderUserList(usersFound);
+      response += '\n\n'
+    }
+
+    if (teamsFound.length) {
+      response += '**Teams found :**\n';
+      response += renderTeamList(teamsFound);
+    }
   }
 
+  // nothing found
   if (response === '') {
     response = 'Nothing found for: **'+nameToSearch+'** !';
   }
+
   console.log('response: '+response);
   bot.say(response);
-
 });
 
 // default message for unrecognized commands

@@ -134,20 +134,20 @@ describe('TakeATrain', function() {
 
   describe('Markdown Rendering', function() {
     it('User rendering should provide a correct Markdown', function() {
-      /*var rendering = '[**John Doe**](http://wwwin-tools.cisco.com/dir/johndoe) (The Avengers) '+
+      /*var rendering = '[**John Doe**](http://wwwin-tools.cisco.com/dir/johndoe) (The Avengers) : Super Hero\n'+
                       '![johndoe](http://wwwin.cisco.com/dir/photo/std/johndoe.jpg)';*/
-      var rendering = '[**John Doe**](http://wwwin-tools.cisco.com/dir/johndoe) (The Avengers) : Super Hero';
+      var rendering = '[**John Doe**](http://wwwin-tools.cisco.com/dir/johndoe) (johndoe) (The Avengers) : Super Hero';
       assert.equal(renderUser(user), rendering);
     });
     it('User List rendering should provide a correct Markdown', function() {
-      var rendering = '- [**John Doe**](http://wwwin-tools.cisco.com/dir/johndoe) (The Avengers) : Super Hero\n'+
-                      '- [**Iron Man**](http://wwwin-tools.cisco.com/dir/ironman) (The Avengers) : Super Hero\n';
+      var rendering = '- [**John Doe**](http://wwwin-tools.cisco.com/dir/johndoe) (johndoe) (The Avengers) : Super Hero\n'+
+                      '- [**Iron Man**](http://wwwin-tools.cisco.com/dir/ironman) (ironman) (The Avengers) : Super Hero\n';
       assert.equal(renderUserList([{user:team.getUsers()[0]}, {user:team.getUsers()[1]}]), rendering);
     });
     it('Team rendering should provide a correct Markdown', function() {
       var rendering = 'Team **"The Avengers"** :\n'+
-                      '- [**John Doe**](http://wwwin-tools.cisco.com/dir/johndoe) : Super Hero\n'+
-                      '- [**Iron Man**](http://wwwin-tools.cisco.com/dir/ironman) : Super Hero\n';
+                      '- [**John Doe**](http://wwwin-tools.cisco.com/dir/johndoe) (johndoe) : Super Hero\n'+
+                      '- [**Iron Man**](http://wwwin-tools.cisco.com/dir/ironman) (ironman) : Super Hero\n';
       assert.equal(renderTeam(team), rendering);
     });
     it('Team List rendering should provide a correct Markdown', function() {
