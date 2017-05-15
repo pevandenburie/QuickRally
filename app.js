@@ -22,7 +22,7 @@ flint.messageFormat = 'markdown';
 flint.start();
 
 // init TakeATrain
-var takeatrain = new TakeATrain()
+var takeatrain = new TakeATrain();
 takeatrain.start();
 
 // say hello
@@ -81,14 +81,14 @@ flint.hears('search', function(bot, trigger) {
   console.log("search for " + nameToSearch);
 
   //logger.info('action="search '+userObj.name+'"');
-  var usersFound = takeatrain.trains.searchUser(nameToSearch);
+  var usersFound = takeatrain.searchUser(nameToSearch);
   if (usersFound.length) {
     response += '**Users found :**\n'
     response += renderUserList(usersFound);
       response += '\n\n'
   }
 
-  var teamsFound = takeatrain.trains.searchTeam(nameToSearch);
+  var teamsFound = takeatrain.searchTeam(nameToSearch);
   if (teamsFound.length) {
     response += '**Teams found :**\n'
     response += renderTeamList(teamsFound);
