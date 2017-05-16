@@ -1,6 +1,6 @@
 {
   "name": "QuickRally",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "An Infinite-Home SparkBot for quick Rally access.",
   "repository": "https://github.com/pevandenburie/QuickRally",
   "main": "app.js",
@@ -8,7 +8,10 @@
     "start": "node app.js",
     "test": "mocha"
   },
-  "author": "paulvand@cisco.com",
+  "author": {
+    "name": "Paul-Emmanuel Vandenburie",
+    "email": "paulvand@cisco.com"
+  },
   "license": "MIT",
   "dependencies": {
     "node-flint": "~4.4.3",
