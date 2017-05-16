@@ -23,7 +23,14 @@ flint.start();
 
 // init TakeATrain
 var takeatrain = new TakeATrain();
-takeatrain.start();
+takeatrain.start().then(function() {
+  console.log('***************************************');
+  console.log('***************************************');
+  console.log('*********     The Trains    ***********');
+  console.log('*********    Are GONE !!!   ***********');
+  console.log('***************************************');
+  console.log('***************************************');
+});
 
 // say hello
 flint.hears('hello', function(bot, trigger) {
