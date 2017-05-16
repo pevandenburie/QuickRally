@@ -2,7 +2,6 @@
 var assert = require('assert');
 
 var TakeATrain = require('../lib/takeatrain');
-var Trains = TakeATrain.Trains;
 var Train = TakeATrain.Train;
 var Team = TakeATrain.Team;
 var User = TakeATrain.User;
@@ -20,9 +19,11 @@ describe('TakeATrain', function() {
   var train = undefined;
   var train2 = undefined;
   var trains = undefined;
+  var takeatrain = undefined;
 
   before(function() {
-    trains = new Trains();
+
+    takeatrain = new TakeATrain();  // do not start it...
 
     // Add a train, a team, a team member
     train = new Train({
@@ -52,18 +53,17 @@ describe('TakeATrain', function() {
         username: 'ironman',
     }));
 
-    trains.add( train );
-
     train2 = new Train({
       Name: 'Fushia',
       Description: 'Test Train 2',
       Notes: 'Some notes about the Test Train 2'
     });
-    trains.add(train2);
     train2.addTeam( new Team({
         Name: 'Justice League'
     }));
 
+    takeatrain.trains.push(train);
+    takeatrain.trains.push(train2);
   });
 
   describe('User', function() {
@@ -104,10 +104,10 @@ describe('TakeATrain', function() {
 
   describe('#searchUser()', function() {
     it('should return empty array when user is unknown', function() {
-      assert.equal(trains.searchUser('Unkown'), 0);
+      assert.equal(takeatrain.searchUser('Unkown'), 0);
     });
     it('should return one-element array when user is known', function() {
-      var found = trains.searchUser('doe');
+      var found = takeatrain.searchUser('doe');
       assert.equal(found.length, 1);
       assert.equal(found[0].name, 'John Doe (The Avengers)');
       assert.equal(found[0].href, '/trains/Indigo#The Avengers');
@@ -121,10 +121,10 @@ describe('TakeATrain', function() {
 
   describe('#searchTeam()', function() {
     it('should return empty array when team is unknown', function() {
-      assert.equal(trains.searchTeam('Unknown'), 0);
+      assert.equal(takeatrain.searchTeam('Unknown'), 0);
     });
     it('should return one-element array when team is known', function() {
-      var found = trains.searchTeam('avenger');
+      var found = takeatrain.searchTeam('avenger');
       assert.equal(found.length, 1);
       assert.equal(found[0].name, 'The Avengers (Indigo)');
       assert.equal(found[0].href, '/trains/Indigo#The Avengers');
@@ -155,17 +155,5 @@ describe('TakeATrain', function() {
                       '- **Justice League** (Fushia)\n';
       assert.equal(renderTeamList([{team: train.getTeams()[0]}, {team: train2.getTeams()[0]}]), rendering);
     });
-
   });
-
-  // describe('Mailer', function() {
-  //   it('created Team should call the provided fetchMailers() function', function() {
-  //     Team.prototype.fetchMailers = function() {
-  //       this.mailers.push("")
-  //     }
-  //
-  //     var team = new Team({ Name: "x-mens" });
-  //     assert.equal(2, team.getMailers().length);
-  //   });
-  // });
 });
