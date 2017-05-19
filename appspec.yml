@@ -5,5 +5,19 @@ files:
     destination: /webapps/myApp
 # permissions:
 #   permissions-specifications
-# hooks:
-#   deployment-lifecycle-event-mappings
+hooks:
+  ApplicationStop:
+     - location: scripts/app-stop.sh
+       timeout: 10
+
+  AfterInstall:
+     - location: scripts/install-pkgs.sh
+       timeout: 1200
+
+  ApplicationStart:
+     - location: scripts/app-start.sh
+       timeout: 60
+
+  ValidateService:
+     - location: scripts/app-validate.sh
+       timeout: 10
