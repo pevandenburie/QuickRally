@@ -1,0 +1,24 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Installing Mocha...
+      - npm install -g mocha
+  pre_build:
+    commands:
+      - echo Installing source NPM dependencies...
+      - npm install
+  build:
+    commands:
+      - echo Build started on `quickrally`
+      - echo Compiling the Node.js code
+      - npm test
+  post_build:
+    commands:
+      - echo Build completed on `quickrally`
+artifacts:
+  files:
+    - app.js
+    - lib/
+    - node_modules/
