@@ -1,0 +1,9 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /webapps/myApp
+# permissions:
+#   permissions-specifications
+# hooks:
+#   deployment-lifecycle-event-mappings
