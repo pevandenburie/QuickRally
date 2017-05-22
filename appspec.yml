@@ -2,22 +2,22 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /webapps/myApp
+    destination: /usr/local/webapps/myApp
 # permissions:
 #   permissions-specifications
 hooks:
   ApplicationStop:
-     - location: scripts/app-stop.sh
-       timeout: 10
+    - location: deployment/app-stop.sh
+      timeout: 10
 
   AfterInstall:
-     - location: scripts/install-pkgs.sh
-       timeout: 1200
+    - location: deployment/install-pkgs.sh
+      timeout: 1200
 
   ApplicationStart:
-     - location: scripts/app-start.sh
-       timeout: 60
+    - location: deployment/app-start.sh
+      timeout: 60
 
   ValidateService:
-     - location: scripts/app-validate.sh
-       timeout: 10
+    - location: deployment/app-validate.sh
+      timeout: 10
