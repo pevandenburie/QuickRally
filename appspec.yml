@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /usr/local/webapps/myApp
+    destination: /usr/local/webapps/quickrally
 # permissions:
 #   permissions-specifications
 hooks:
