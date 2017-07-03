@@ -9,15 +9,19 @@ hooks:
   ApplicationStop:
     - location: deployment/app-stop.sh
       timeout: 10
+      runas: root
 
   AfterInstall:
     - location: deployment/install-pkgs.sh
       timeout: 1200
+      runas: root
 
   ApplicationStart:
     - location: deployment/app-start.sh
       timeout: 60
+      runas: root
 
   ValidateService:
     - location: deployment/app-validate.sh
       timeout: 10
+      runas: root
